@@ -1,5 +1,6 @@
-```SQL
+```sql
 SELECT ROUND(AVG(DAILY_FEE), 0) AS AVEARGE_FEE
 FROM CAR_RENTAL_COMPANY_CAR
 WHERE CAR_TYPE = 'SUV' ;
 -- 문제 제대로 읽기 ; 소수 첫번째 자리에서 반올림 아라고 되어있었음
+```
