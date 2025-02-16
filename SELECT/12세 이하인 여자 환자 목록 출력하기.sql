@@ -1,0 +1,7 @@
+SELECT PT_NAME, PT_NO, GEND_CD, AGE, COALESCE(TLNO, 'NONE') -- 없는 경우 NONE으로 출력
+FROM PATIENT
+WHERE (AGE <= 12) AND (GEND_CD = 'W') 
+ORDER BY AGE DESC, PT_NAME ;
+-- SQL 결측값 처리 : COALESCE, IFNULL
+-- COALESCE : 모든 DBMS에 활용됨, 이를 주로 사용하는 습관
+-- IFNULL : MYSQL 전용일 때, 간단한 NULL 처리 시 사용
