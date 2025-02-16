@@ -1,0 +1,4 @@
+SELECT ID, EMAIL, FIRSTNAME, LASTNAME
+FROM DEVELOPERINFOS
+WHERE "Python" IN (SKILL1, SKILL2, SKILL3) -- 여러 컬럼에서 동일한 문자 찾을 때 IN 활용 방법 
+ORDER BY ID -- ORDER BY 1로 숫자로 작성하면, ID에 대해 정렬해줌
