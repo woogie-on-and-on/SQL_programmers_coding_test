@@ -1,0 +1,5 @@
+SELECT COUNT(*) AS FISH_COUNT
+FROM FISH_INFO
+WHERE LENGTH IS NULL ;
+-- ISNULL(LENGTH) : 해당 값이 NULL인지 아닌지를 판단하는 함수
+-- LENGTH IS NULL : SQL 표준을 따르는 일반적인 방법, NULL값과 비교하는데 사용
