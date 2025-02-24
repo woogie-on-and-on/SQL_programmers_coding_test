@@ -1,0 +1,7 @@
+SELECT USER_ID, PRODUCT_ID
+FROM ONLINE_SALE
+GROUP BY USER_ID, PRODUCT_ID
+HAVING COUNT(*) > 1
+ORDER BY USER_ID, PRODUCT_ID DESC ;
+-- GROUP BY를 수행하면, 해당 컬럼들의 고유한 조합만을 전부 보여줌
+-- COUNT(*)를 추가해주면 해당 조합이 ONLINE_SALE 테이블에서 몇 번 나왔는 지 보여주는 것
