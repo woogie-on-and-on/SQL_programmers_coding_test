@@ -1,0 +1,9 @@
+SELECT ROUND(AVG(IFNULL(LENGTH,10)), 2) AS AVERAGE_LENGTH
+FROM FISH_INFO ; 
+
+-- 내가 처음에 접근한 방식
+SELECT ROUND(AVG(LENGTH), 2) AS AVEAGE_LENGTH
+FROM FISH_INFO
+WHERE IFNULL(LENGTH, 10) ;
+-- WHERE 조건에 넣으면 해당 조건이 적용된다고 잘못 생각함. WHERE절은 어떤 값을 필터링 할 것인지 작성
+-- IFNULL(LENGTH, 10)은 TRUE 또는 FALSE를 반환하지 않으므로, 잘못 실행한 쿼리문
