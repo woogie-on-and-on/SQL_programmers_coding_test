@@ -1,0 +1,34 @@
+SELECT SUM(GRAD.SCORE) AS SCORE, EMPO.EMP_NO, EMPO.EMP_NAME, EMPO.POSITION, EMPO.EMAIL
+FROM HR_EMPLOYEES AS EMPO
+JOIN HR_GRADE AS GRAD
+ON EMPO.EMP_NO = GRAD.EMP_NO
+WHERE GRAD.YEAR = 2022
+GROUP BY EMPO.EMP_NO, EMPO.EMP_NAME, EMPO.POSITION, EMPO.EMAIL
+ORDER BY SCORE DESC
+LIMIT 1 ;
+
+-- 문제에 HR_DEPARTMENT 테이블도 나왔지만, 결과적으로 필요없는 테이블이므로 굳이 JOIN할 필요 없음
+-- HAVING(SUM(GRAD.SCORE))을 수행했는데, 해당 조건은 불필요한 조건
+-- GROUP BY에서는 SELECT에 있는 집계되지 않은 모든 컬럼을 GROUP BY에 포함해야 함
+
+-- 다른 풀이
+-- WITH문 활용(CTE(공통 테이블 표현) 활용)
+-- 각 사원의 총 점수 구하기
+WITH CTE_TOTAL_SCORE AS (
+  SELECT EMP_NO, SUM(SCORE) AS SCORE
+  FROM HR_GRADE
+  GROUP BY EMP_NO
+) ,CTE_SCORE_RNK AS (
+  SELECT C.EMP_NO, E.EMP_NAME, E.POSITION, E.EMAIL, C.SCORE, 
+  DENSE_RANK() OVER (ORDER BY SCORE DESC) AS RNK -- DENSE_RANK() OVER (ORDER BY SCORE DESC)을 통해 동일 점수면 같은 순위
+  FROM CTE_TOTAL_SCORE C
+  JOIN HR_EMPLOYEES E
+  ON C.EMP_NO = E.EMP_NO
+) -- 총 점수를 기반으로 순위 매기기
+SELECT SCORE, EMP_NO, EMP_NAME, POSITION, EMIAL
+FROM CTE_STORE_RNK
+WHERE RNK = 1 ;
+
+-- WITH문 활용 시 테이블처럼 활용할 수 있는 가상의 데이터셋을 정의
+-- WITH 문에서 여러 개의 CTE를 정의할 때 ,(콤마)를 활용할 수 있음 
+-- DENSE_RANK()에서는 같은 점수가 있으면 같은 순위 부여하고 다음 순위 연속적인 유지 (1,1,2,3, ...)
